@@ -84,7 +84,7 @@ export default function AboutMe({
             {/* Flip Card Container */}
             <div
               style={{
-                width: "480px",
+                width: "500px",
                 height: "290px",
                 perspective: "1200px",
                 cursor: "pointer",
@@ -173,6 +173,7 @@ export default function AboutMe({
                         color: "#000080",
                         margin: "0 0 6px 0",
                         lineHeight: 1.1,
+                        whiteSpace: "nowrap"
                       }}
                     >
                       {name}
