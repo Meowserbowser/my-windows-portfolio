@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import photo from "../../assets/photo.jpeg"; // Check extension (.jpeg vs .jpg)
+import defaultPhoto from "../../assets/photo.jpeg";
 
 export default function AboutMe({
   isOpen = true,
   onClose = () => {},
   zIndex = 50,
   onFocus = () => {},
+  data = {},
 }) {
   const [flipped, setFlipped] = useState(false);
 
-  // Common spring transition settings
+  const photo = data?.photoUrl || defaultPhoto;
+  const name = data?.name || "Eaint Mon Mon Kyi";
+  const subtitle = data?.subtitle || "ICT Student & Creative Developer";
+  const email = data?.email || "eaintmonmonkyi2@gmail.com";
+  const website = data?.website || "portfolio.os";
+  const idNumber = data?.idNumber || "ID #2026";
+  const backHeader = data?.backHeader || "PERSONNEL FILE // ABOUT ME";
+  const bio =
+    data?.bio ||
+    "Third-year Information & Communication Technology undergraduate specializing in interactive software, front-end architecture, and applied AI systems. Passionate about retro UI design, responsive interactive web canvases, and tactile micro-interactions.";
+  const status = data?.status || "Status: Available for hire";
+
   const springDrop = {
     type: "spring",
     stiffness: 110,
@@ -63,11 +75,9 @@ export default function AboutMe({
           >
             {/* Lanyard Clip Attachment */}
             <div className="flex flex-col items-center z-30">
-              {/* Metal Clasp */}
               <div className="w-10 h-10 bg-gradient-to-b from-zinc-300 via-zinc-400 to-zinc-500 rounded-t-lg border border-zinc-600 shadow-md flex items-center justify-center">
                 <div className="w-3 h-5 bg-zinc-700 rounded-full opacity-60" />
               </div>
-              {/* Ring / Connector */}
               <div className="w-5 h-3 bg-zinc-400 border-x-2 border-zinc-600 -mt-0.5" />
             </div>
 
@@ -122,7 +132,6 @@ export default function AboutMe({
                     boxSizing: "border-box",
                   }}
                 >
-                  {/* Photo Circle */}
                   <div
                     style={{
                       width: "130px",
@@ -145,7 +154,6 @@ export default function AboutMe({
                     />
                   </div>
 
-                  {/* Namecard Details */}
                   <div style={{ textAlign: "left", flex: 1 }}>
                     <div
                       style={{
@@ -167,7 +175,7 @@ export default function AboutMe({
                         lineHeight: 1.1,
                       }}
                     >
-                      Eaint Mon Mon Kyi
+                      {name}
                     </h1>
                     <p
                       style={{
@@ -177,7 +185,7 @@ export default function AboutMe({
                         margin: "0 0 14px 0",
                       }}
                     >
-                      ICT Student & Creative Developer
+                      {subtitle}
                     </p>
                     <div
                       style={{
@@ -190,8 +198,8 @@ export default function AboutMe({
                         gap: "3px",
                       }}
                     >
-                      <span>📧 eaint@example.com</span>
-                      <span>🌐 portfolio.os</span>
+                      <span>📧 {email}</span>
+                      <span>🌐 {website}</span>
                     </div>
                     <div
                       style={{
@@ -226,20 +234,17 @@ export default function AboutMe({
                   <div>
                     <div className="flex items-center justify-between border-b-2 border-neutral-300 pb-2 mb-3">
                       <span className="text-xs font-bold text-blue-900 tracking-wider">
-                        PERSONNEL FILE // ABOUT ME
+                        {backHeader}
                       </span>
-                      <span className="text-[10px] text-neutral-400">ID #2026</span>
+                      <span className="text-[10px] text-neutral-400">{idNumber}</span>
                     </div>
-                    <p className="text-xs text-neutral-700 leading-relaxed">
-                      Third-year Information & Communication Technology undergraduate
-                      specializing in interactive software, front-end architecture, and
-                      applied AI systems. Passionate about retro UI design, responsive
-                      interactive web canvases, and tactile micro-interactions.
+                    <p className="text-xs text-neutral-700 leading-relaxed whitespace-pre-line">
+                      {bio}
                     </p>
                   </div>
 
                   <div className="border-t border-dashed border-neutral-300 pt-2 flex justify-between items-center text-[10px] text-neutral-500">
-                    <span>Status: Available for hire</span>
+                    <span>{status}</span>
                     <span className="italic">[click to flip back ↵]</span>
                   </div>
                 </div>
