@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+// Import start icon directly so Vite includes it in the production build
+import startIcon from "../assets/start.png";
+import clockIcon from "../assets/clock.png";
 
 function bevelStyle(dark, pressed = false, isActive = false) {
   if (dark) {
@@ -114,15 +117,20 @@ export default function Taskbar({
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            gap: "4px",
+            gap: "6px",
             height: "28px",
             minWidth: "80px",
           }}
         >
           <img
-            src="/src/assets/start.png"
+            src={startIcon}
             alt="Start"
-            style={{ width: "16px", height: "16px", objectFit: "contain" }}
+            style={{
+              width: "16px",
+              height: "16px",
+              objectFit: "contain",
+              imageRendering: "pixelated",
+            }}
           />
           Start
         </button>
@@ -225,16 +233,21 @@ export default function Taskbar({
           ...bevelStyle(darkMode, true),
           display: "flex",
           alignItems: "center",
-          gap: "8px",
+          gap: "6px",
           padding: "2px 8px",
           height: "28px",
           marginLeft: "auto",
         }}
       >
         <img
-          src="/src/assets/clock.png"
+          src={clockIcon}
           alt="Clock"
-          style={{ width: "14px", height: "14px", objectFit: "contain" }}
+          style={{
+            width: "14px",
+            height: "14px",
+            objectFit: "contain",
+            imageRendering: "pixelated",
+          }}
         />
         <span
           style={{
