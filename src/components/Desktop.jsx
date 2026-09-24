@@ -7,11 +7,37 @@ import Projects from "./windows/Projects";
 import Teaching from "./windows/Teaching";
 import ContactMe from "./windows/ContactMe";
 
+// Import image assets directly so Vite bundles them properly for production
+import aboutIcon from "../assets/about_me_icon.png";
+import projectsIcon from "../assets/projects.png";
+import teachingIcon from "../assets/teaching.png";
+import contactIcon from "../assets/contact_me.png";
+
 const WINDOWS_CONFIG = [
-  { id: "about",    label: "About Me",   icon: <img src="/src/assets/about_me_icon.png" alt="About Me" />, component: null },
-  { id: "projects", label: "Projects",   icon: <img src="/src/assets/projects.png" alt="Projects" />, component: Projects },
-  { id: "teaching", label: "Teaching",   icon: <img src="/src/assets/teaching.png" alt="Teaching" />, component: Teaching },
-  { id: "contact",  label: "Contact Me", icon: <img src="/src/assets/contact_me.png" alt="Contact Me" />, component: ContactMe },
+  { 
+    id: "about",    
+    label: "About Me",   
+    icon: <img src={aboutIcon} alt="About Me" />, 
+    component: null 
+  },
+  { 
+    id: "projects", 
+    label: "Projects",   
+    icon: <img src={projectsIcon} alt="Projects" />, 
+    component: Projects 
+  },
+  { 
+    id: "teaching", 
+    label: "Teaching",   
+    icon: <img src={teachingIcon} alt="Teaching" />, 
+    component: Teaching 
+  },
+  { 
+    id: "contact",  
+    label: "Contact Me", 
+    icon: <img src={contactIcon} alt="Contact Me" />, 
+    component: ContactMe 
+  },
 ];
 
 export default function Desktop({ darkMode, setDarkMode }) {
@@ -67,7 +93,7 @@ export default function Desktop({ darkMode, setDarkMode }) {
       style={{ width: "100vw", height: "100vh", background: bg }}
     >
       {/* Desktop Icons */}
-      <div className="absolute top-4 left-4 flex flex-col gap-6">
+      <div className="absolute top-6 left-6 flex flex-col gap-8">
         {WINDOWS_CONFIG.map((win) => (
           <DesktopIcon
             key={win.id}
@@ -80,12 +106,12 @@ export default function Desktop({ darkMode, setDarkMode }) {
       </div>
 
       {/* Render directly inside Desktop.jsx */}
-          <AboutMe
-            isOpen={isAboutOpen}
-            zIndex={aboutZIndex}
-            onFocus={() => bringToFront("about")}
-            onClose={() => closeWindow("about")}
-          />
+      <AboutMe
+        isOpen={isAboutOpen}
+        zIndex={aboutZIndex}
+        onFocus={() => bringToFront("about")}
+        onClose={() => closeWindow("about")}
+      />
 
       {/* ── All other windows ── */}
       {WINDOWS_CONFIG.filter((w) => w.component !== null).map((win) => {
