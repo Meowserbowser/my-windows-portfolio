@@ -15,6 +15,7 @@ function bevelStyle(dark) {
 
 export default function Window({
   id, title, icon, darkMode, isMinimized, zIndex,
+  defaultWidth = 520, defaultHeight = 380,
   onClose, onMinimize, onFocus, children,
 }) {
   const [maximized, setMaximized] = useState(false);
@@ -146,10 +147,10 @@ export default function Window({
     <Draggable nodeRef={nodeRef} handle=".cursor-move" defaultPosition={{ x: 80 + Math.random() * 120, y: 40 + Math.random() * 80 }} onMouseDown={onFocus}>
       <div ref={nodeRef} style={{ position: "absolute", zIndex }}>
         <ResizableBox
-          width={520}
-          height={380}
+          width={defaultWidth}
+          height={defaultHeight}
           minConstraints={[260, 200]}
-          maxConstraints={[900, 700]}
+          maxConstraints={[1200, 900]}
           resizeHandles={["se"]}
         >
           <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", ...bevelStyle(darkMode) }}>

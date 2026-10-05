@@ -81,6 +81,8 @@ export default function Desktop({ darkMode, setDarkMode }) {
       label: "Projects",
       iconSrc: defaultProjectsIcon,
       component: Projects,
+      defaultWidth: 520,
+      defaultHeight: 580,
       props: {},
     },
     {
@@ -169,7 +171,7 @@ export default function Desktop({ darkMode, setDarkMode }) {
       />
 
       {/* All standard window frames */}
-      {allWindows
+{allWindows
         .filter((w) => w.id !== "about")
         .map((win) => {
           if (!openWindows.includes(win.id)) return null;
@@ -193,6 +195,8 @@ export default function Desktop({ darkMode, setDarkMode }) {
               darkMode={darkMode}
               isMinimized={isMinimized}
               zIndex={zIndex}
+              defaultWidth={win.defaultWidth || 520}
+              defaultHeight={win.defaultHeight || 450}
               onClose={() => closeWindow(win.id)}
               onMinimize={() => minimizeWindow(win.id)}
               onFocus={() => bringToFront(win.id)}

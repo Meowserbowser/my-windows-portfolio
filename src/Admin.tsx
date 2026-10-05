@@ -453,7 +453,6 @@ export default function Admin() {
           <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
             <div>
               <h2 className="text-lg font-bold">6. Additional Custom Windows (Optional)</h2>
-              <p className="text-xs text-slate-500">Only use this if you want to add extra windows to your desktop.</p>
             </div>
             <button
               onClick={() => {
