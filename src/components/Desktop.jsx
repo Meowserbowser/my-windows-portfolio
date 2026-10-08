@@ -107,8 +107,8 @@ export default function Desktop({ darkMode, setDarkMode }) {
       label: "Slither.exe",
       iconSrc: slitherIcon,
       component: Slither,
-      defaultWidth: 380,
-      defaultHeight: 440,
+      defaultWidth: 520,
+      defaultHeight: 580,
       props: {},
     },
   ];
