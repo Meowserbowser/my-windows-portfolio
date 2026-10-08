@@ -6,6 +6,7 @@ export default function Slither() {
 
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const gameState = useRef({
     snake: [
@@ -130,6 +131,11 @@ export default function Slither() {
     }, 100);
   };
 
+  const startGame = () => {
+    setHasStarted(true);
+    runTick();
+  };
+
   const restartGame = () => {
     clearTimeout(timerRef.current);
     gameState.current = {
@@ -164,7 +170,13 @@ export default function Slither() {
 
   useEffect(() => {
     createFood();
-    runTick();
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      clearCanvas(ctx);
+      drawFood(ctx);
+      drawSnake(ctx);
+    }
 
     const handleKeyDown = (event) => {
       if (gameState.current.changingDirection) return;
@@ -258,12 +270,53 @@ export default function Slither() {
           style={{ display: "block" }}
         />
 
+        {/* Start Game Screen */}
+        {!hasStarted && (
+          <div
+            className="absolute inset-0 flex flex-col items-center justify-center gap-4"
+            style={{ backgroundColor: "rgba(0,0,0,0.85)" }}
+          >
+            <span
+              style={{
+                color: "#ffffff",
+                fontWeight: "900",
+                fontSize: "26px",
+                letterSpacing: "4px",
+                textTransform: "lowercase",
+              }}
+            >
+              slither
+            </span>
+            <button
+              onClick={startGame}
+              style={{
+                backgroundColor: "#c0c0c0",
+                color: "#000000",
+                borderTop: "2px solid #ffffff",
+                borderLeft: "2px solid #ffffff",
+                borderRight: "2px solid #000000",
+                borderBottom: "2px solid #000000",
+                padding: "4px 16px",
+                fontWeight: "bold",
+                fontSize: "12px",
+                cursor: "pointer",
+                fontFamily: "'Courier New', monospace",
+              }}
+            >
+              Play ↵
+            </button>
+          </div>
+        )}
+
+        {/* Game Over Screen */}
         {gameOver && (
           <div
             className="absolute inset-0 flex flex-col items-center justify-center gap-3"
             style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
           >
-            <span style={{ color: "#ff4444", fontWeight: "bold", fontSize: "16px" }}>
+            <span
+              style={{ color: "#ff4444", fontWeight: "bold", fontSize: "16px" }}
+            >
               GAME OVER
             </span>
             <button
@@ -289,7 +342,7 @@ export default function Slither() {
       </div>
 
       <div className="w-full text-center text-[11px] text-neutral-600 mt-2">
-        Eat to grow. Don't crash into boundaries or your tail!
+        Crafted with HTML5 Canvas and vanilla JavaScript logic. Enjoy!
       </div>
     </div>
   );

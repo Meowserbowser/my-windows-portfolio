@@ -14,14 +14,29 @@ function bevelStyle(dark) {
 }
 
 export default function Window({
-  id, title, icon, darkMode, isMinimized, zIndex,
-  defaultWidth = 520, defaultHeight = 380,
-  onClose, onMinimize, onFocus, children,
+  id,
+  title,
+  icon,
+  darkMode,
+  isMinimized,
+  zIndex,
+  defaultWidth = 520,
+  defaultHeight = 380,
+  onClose,
+  onMinimize,
+  onFocus,
+  children,
 }) {
   const [maximized, setMaximized] = useState(false);
   const nodeRef = useRef(null);
   const font = "'Courier New', monospace";
   const titleBg = darkMode ? "#000060" : "#000080";
+
+  // Generates fresh random offset coordinates each time the window is opened
+  const [position, setPosition] = useState(() => ({
+    x: Math.floor(60 + Math.random() * 180),
+    y: Math.floor(40 + Math.random() * 120),
+  }));
 
   if (isMinimized) return null;
 
@@ -33,12 +48,15 @@ export default function Window({
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
-    ...(maximized ? {
-      top: 0, left: 0,
-      width: "100vw",
-      height: "calc(100vh - 36px)",
-      transform: "none",
-    } : {}),
+    ...(maximized
+      ? {
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "calc(100vh - 36px)",
+          transform: "none",
+        }
+      : {}),
   };
 
   const titleBar = (
@@ -52,16 +70,32 @@ export default function Window({
       }}
       onMouseDown={onFocus}
     >
-      <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold", display: "flex", alignItems: "center", gap: "4px" }}>
+      <span
+        style={{
+          color: "#ffffff",
+          fontSize: "12px",
+          fontWeight: "bold",
+          display: "flex",
+          alignItems: "center",
+          gap: "4px",
+        }}
+      >
         {icon} {title}
       </span>
       <div className="flex gap-1">
         {["_", "□", "✕"].map((btn, i) => (
           <button
             key={i}
-            onClick={i === 0 ? onMinimize : i === 1 ? () => setMaximized((m) => !m) : onClose}
+            onClick={
+              i === 0
+                ? onMinimize
+                : i === 1
+                ? () => setMaximized((m) => !m)
+                : onClose
+            }
             style={{
-              width: "18px", height: "18px",
+              width: "18px",
+              height: "18px",
               background: "#c0c0c0",
               border: "2px solid",
               borderTopColor: "#ffffff",
@@ -71,7 +105,9 @@ export default function Window({
               fontSize: "10px",
               fontWeight: "bold",
               cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               color: "#000000",
               lineHeight: 1,
               fontFamily: font,
@@ -84,7 +120,6 @@ export default function Window({
     </div>
   );
 
-  // Menu bar
   const menuBar = (
     <div
       style={{
@@ -100,7 +135,13 @@ export default function Window({
       }}
     >
       {["File", "Edit", "View", "Help"].map((m) => (
-        <span key={m} style={{ cursor: "default", padding: "1px 4px" }} className="hover:bg-blue-800 hover:text-white">{m}</span>
+        <span
+          key={m}
+          style={{ cursor: "default", padding: "1px 4px" }}
+          className="hover:bg-blue-800 hover:text-white"
+        >
+          {m}
+        </span>
       ))}
     </div>
   );
@@ -122,7 +163,6 @@ export default function Window({
       >
         {children}
       </div>
-      {/* Status bar */}
       <div
         style={{
           background: darkMode ? "#1e1e3e" : "#c0c0c0",
@@ -140,11 +180,31 @@ export default function Window({
   );
 
   if (maximized) {
-    return <div ref={nodeRef} style={{ position: "absolute", top: 0, left: 0, zIndex, width: "100vw", height: "calc(100vh - 36px)" }}>{content}</div>;
+    return (
+      <div
+        ref={nodeRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex,
+          width: "100vw",
+          height: "calc(100vh - 36px)",
+        }}
+      >
+        {content}
+      </div>
+    );
   }
 
   return (
-    <Draggable nodeRef={nodeRef} handle=".cursor-move" defaultPosition={{ x: 80 + Math.random() * 120, y: 40 + Math.random() * 80 }} onMouseDown={onFocus}>
+    <Draggable
+      nodeRef={nodeRef}
+      handle=".cursor-move"
+      position={position}
+      onDrag={(_, data) => setPosition({ x: data.x, y: data.y })}
+      onMouseDown={onFocus}
+    >
       <div ref={nodeRef} style={{ position: "absolute", zIndex }}>
         <ResizableBox
           width={defaultWidth}
@@ -153,7 +213,15 @@ export default function Window({
           maxConstraints={[1200, 900]}
           resizeHandles={["se"]}
         >
-          <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", ...bevelStyle(darkMode) }}>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              ...bevelStyle(darkMode),
+            }}
+          >
             {titleBar}
             {menuBar}
             <div
