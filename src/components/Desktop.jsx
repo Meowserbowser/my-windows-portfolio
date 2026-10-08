@@ -14,7 +14,7 @@ import defaultAboutIcon from "../assets/about_me_icon.png";
 import defaultProjectsIcon from "../assets/projects.png";
 import defaultTeachingIcon from "../assets/teaching.png";
 import defaultContactIcon from "../assets/contact_me.png";
-import slitherIcon from "../assets/slither.png";
+import slitherIcon from "../assets/slither.ico";
 
 export default function Desktop({ darkMode, setDarkMode }) {
   const [config, setConfig] = useState(null);
