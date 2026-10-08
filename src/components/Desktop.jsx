@@ -6,12 +6,15 @@ import AboutMe from "./windows/AboutMe";
 import Projects from "./windows/Projects";
 import Teaching from "./windows/Teaching";
 import ContactMe from "./windows/ContactMe";
+import Slither from "./windows/Slither";
+
 
 // Default bundled icon assets
 import defaultAboutIcon from "../assets/about_me_icon.png";
 import defaultProjectsIcon from "../assets/projects.png";
 import defaultTeachingIcon from "../assets/teaching.png";
 import defaultContactIcon from "../assets/contact_me.png";
+import slitherIcon from "../assets/slither.png";
 
 export default function Desktop({ darkMode, setDarkMode }) {
   const [config, setConfig] = useState(null);
@@ -68,7 +71,7 @@ export default function Desktop({ darkMode, setDarkMode }) {
     [activeWindowId, minimizeWindow, openWindow]
   );
 
-  // Core 4 Windows (Permanent)
+  // Core Windows (Permanent)
   const defaultWindows = [
     {
       id: "about",
@@ -98,6 +101,15 @@ export default function Desktop({ darkMode, setDarkMode }) {
       iconSrc: defaultContactIcon,
       component: ContactMe,
       props: { data: config?.contact },
+    },
+    {
+      id: "slither",
+      label: "Slither.exe",
+      iconSrc: slitherIcon,
+      component: Slither,
+      defaultWidth: 380,
+      defaultHeight: 440,
+      props: {},
     },
   ];
 
