@@ -128,21 +128,40 @@ export default function Admin() {
             </div>
 
             {config.background?.type === "color" ? (
-              <div>
-                <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Color</label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    value={config.background?.value || "#008080"}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        background: { ...config.background, value: e.target.value },
-                      })
-                    }
-                    className="w-10 h-9 p-0 border border-slate-300 rounded cursor-pointer"
-                  />
-                  <span className="font-mono text-xs">{config.background?.value}</span>
+              <div className="flex items-center gap-8">
+                <div>
+                  <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Light Mode Color</label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={config.background?.value || "#008080"}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config,
+                          background: { ...config.background, value: e.target.value },
+                        })
+                      }
+                      className="w-10 h-9 p-0 border border-slate-300 rounded cursor-pointer"
+                    />
+                    <span className="font-mono text-xs">{config.background?.value}</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Dark Mode Color</label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={config.background?.darkValue || "#1a1a2e"}
+                      onChange={(e) =>
+                        setConfig({
+                          ...config,
+                          background: { ...config.background, darkValue: e.target.value },
+                        })
+                      }
+                      className="w-10 h-9 p-0 border border-slate-300 rounded cursor-pointer"
+                    />
+                    <span className="font-mono text-xs">{config.background?.darkValue}</span>
+                  </div>
                 </div>
               </div>
             ) : (

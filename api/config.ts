@@ -11,7 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `;
 
     const defaultConfig = {
-      background: { type: "color", value: "#008080" },
+      background: { type: "color", value: "#008080" , darkValue: "#1a1a2e" },
       about: {
         photoUrl: "",
         name: "Eaint Mon Mon Kyi",
