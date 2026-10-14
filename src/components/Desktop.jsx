@@ -8,7 +8,6 @@ import Teaching from "./windows/Teaching";
 import ContactMe from "./windows/ContactMe";
 import Slither from "./windows/Slither";
 
-
 // Default bundled icon assets
 import defaultAboutIcon from "../assets/about_me_icon.png";
 import defaultProjectsIcon from "../assets/projects.png";
@@ -130,29 +129,29 @@ export default function Desktop({ darkMode, setDarkMode }) {
 
   const allWindows = [...defaultWindows, ...customWindows];
 
-  // Dynamic Background Style
-  const bgStyle = {
-    width: "100vw",
-    height: "100vh",
-    backgroundColor:
-      config?.background?.type === "color"
-        ? config.background.value
-        : darkMode
-        ? "#1a1a2e"
-        : "#008080",
-    backgroundImage:
-      config?.background?.type === "image" && config?.background?.value
-        ? `url(${config.background.value})`
-        : "none",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
-
   const isAboutOpen = openWindows.includes("about") && !minimized.includes("about");
   const aboutZIndex = zOrder.indexOf("about") !== -1 ? zOrder.indexOf("about") + 10 : 50;
 
   return (
-    <div className="relative overflow-hidden select-none" style={bgStyle}>
+    <div
+      className="w-full h-screen overflow-hidden relative select-none"
+      style={{
+        backgroundColor:
+          config?.background?.type === "color"
+            ? darkMode
+              ? config.background.darkValue || "#1a1a2e"
+              : config.background.value || "#008080"
+            : darkMode
+            ? "#1a1a2e"
+            : "#008080",
+        backgroundImage:
+          config?.background?.type === "image" && config?.background?.value
+            ? `url(${config.background.value})`
+            : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       {/* Desktop Icons */}
       <div className="absolute top-6 left-6 flex flex-col gap-6 z-0">
         {allWindows.map((win) => (
@@ -183,7 +182,7 @@ export default function Desktop({ darkMode, setDarkMode }) {
       />
 
       {/* All standard window frames */}
-{allWindows
+      {allWindows
         .filter((w) => w.id !== "about")
         .map((win) => {
           if (!openWindows.includes(win.id)) return null;
